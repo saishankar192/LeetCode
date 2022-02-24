@@ -11,6 +11,43 @@
 class Solution {
 public:
     ListNode* MergeLists(ListNode* a, ListNode* b){
+        ListNode* root = NULL, *t=NULL;
+        
+        while(a && b){
+            if(a->val <= b->val){
+                ListNode* temp = a->next;
+                a->next = NULL;
+                if(!t){
+                    t = a;
+                    root = a;
+                }
+                else{
+                    t->next = a;
+                    t = t->next;
+                }
+                a = temp;
+            }
+            else{
+                ListNode* temp = b->next;
+                b->next = NULL;
+                if(!t){
+                    t = b;
+                    root = b;
+                }
+                else{
+                    t->next = b;
+                    t = t->next;
+                }
+                b = temp;
+            }
+        }
+        
+        if(a)
+            t->next = a;
+        if(b)
+            t->next = b;
+        
+        return root;
     }
     
     ListNode* MergeSort(ListNode* head, int cnt){
@@ -19,7 +56,7 @@ public:
         
         int mid = cnt/2;
         int t = mid;
-        ListNode* temp = head
+        ListNode* temp = head;
         while(--t){
             temp = temp->next;
         }
@@ -38,7 +75,7 @@ public:
         
         while(temp){
             cnt++;
-            temp = temp->next
+            temp = temp->next;
         }
         
         if(head)
